@@ -22,6 +22,7 @@
 		49E2E10D1D62C9E000DF6E47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		49E2E10F1D62C9E000DF6E47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49E2E1301D638B9600DF6E47 /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
+		49E2E1341D63F34400DF6E47 /* Scratchpad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Scratchpad.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +55,7 @@
 		49E2E1051D62C9E000DF6E47 /* Scratchpad */ = {
 			isa = PBXGroup;
 			children = (
+				49E2E1341D63F34400DF6E47 /* Scratchpad.entitlements */,
 				49E2E1061D62C9E000DF6E47 /* AppDelegate.swift */,
 				49E2E1301D638B9600DF6E47 /* EventMonitor.swift */,
 				49E2E1081D62C9E000DF6E47 /* ViewController.swift */,
@@ -96,6 +98,11 @@
 				TargetAttributes = {
 					49E2E1021D62C9E000DF6E47 = {
 						CreatedOnToolsVersion = 7.3.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -240,6 +247,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Scratchpad/Scratchpad.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Scratchpad/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -252,6 +260,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Scratchpad/Scratchpad.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Scratchpad/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
