@@ -11,6 +11,7 @@
 		49E2E1091D62C9E000DF6E47 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2E1081D62C9E000DF6E47 /* ViewController.swift */; };
 		49E2E10B1D62C9E000DF6E47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49E2E10A1D62C9E000DF6E47 /* Assets.xcassets */; };
 		49E2E10E1D62C9E000DF6E47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49E2E10C1D62C9E000DF6E47 /* Main.storyboard */; };
+		49E2E1311D638B9600DF6E47 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2E1301D638B9600DF6E47 /* EventMonitor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		49E2E10A1D62C9E000DF6E47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49E2E10D1D62C9E000DF6E47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		49E2E10F1D62C9E000DF6E47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49E2E1301D638B9600DF6E47 /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				49E2E1061D62C9E000DF6E47 /* AppDelegate.swift */,
+				49E2E1301D638B9600DF6E47 /* EventMonitor.swift */,
 				49E2E1081D62C9E000DF6E47 /* ViewController.swift */,
 				49E2E10A1D62C9E000DF6E47 /* Assets.xcassets */,
 				49E2E10C1D62C9E000DF6E47 /* Main.storyboard */,
@@ -131,6 +134,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49E2E1311D638B9600DF6E47 /* EventMonitor.swift in Sources */,
 				49E2E1091D62C9E000DF6E47 /* ViewController.swift in Sources */,
 				49E2E1071D62C9E000DF6E47 /* AppDelegate.swift in Sources */,
 			);
@@ -275,6 +279,7 @@
 				49E2E1141D62C9E000DF6E47 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

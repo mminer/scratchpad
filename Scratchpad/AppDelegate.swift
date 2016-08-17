@@ -13,6 +13,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
 
+    private lazy var eventMonitor: EventMonitor = EventMonitor(
+        mask: [.LeftMouseDownMask, .RightMouseUpMask],
+        handler: { _ in self.hidePopover() }
+    )
+
     private lazy var popover: NSPopover = {
         let popover = NSPopover()
         popover.behavior = .Transient
@@ -27,24 +32,32 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         if let button = statusItem.button {
-            button.action = #selector(toggleScratchpad)
+            button.action = #selector(togglePopover)
+            button.image = NSImage(named: "StatusItemIcon")
+            button.image?.template = true
             button.target = self
-
-            let image = NSImage(named: "StatusItemIcon")
-            image?.template = true
-            button.image = image
         }
     }
 
-    func toggleScratchpad() {
+    func togglePopover() {
+        if popover.shown {
+            hidePopover()
+        } else {
+            showPopover()
+        }
+    }
+
+    private func hidePopover() {
+        popover.performClose(self)
+        eventMonitor.stop()
+    }
+
+    private func showPopover() {
         guard let button = statusItem.button else {
             return
         }
 
-        if popover.shown {
-            popover.performClose(self)
-        } else {
-            popover.showRelativeToRect(button.bounds, ofView: button, preferredEdge: .MinY)
-        }
+        popover.showRelativeToRect(button.bounds, ofView: button, preferredEdge: .MinY)
+        eventMonitor.start()
     }
 }
