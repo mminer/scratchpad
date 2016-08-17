@@ -7,12 +7,15 @@
 //
 
 import Cocoa
+import MASShortcut
 
 class PreferencesViewController: NSViewController {
 
-    @IBOutlet weak var smallTextButton: NSButton!
-    @IBOutlet weak var mediumTextButton: NSButton!
+    @IBOutlet weak var shortcutView: MASShortcutView!
+
     @IBOutlet weak var largeTextButton: NSButton!
+    @IBOutlet weak var mediumTextButton: NSButton!
+    @IBOutlet weak var smallTextButton: NSButton!
 
     private var textSize: TextSize {
         let rawValue = NSUserDefaults.standardUserDefaults().stringForKey(DefaultsKeys.textSize.rawValue) ?? ""
@@ -21,6 +24,7 @@ class PreferencesViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        shortcutView.associatedUserDefaultsKey = DefaultsKeys.shortcut.rawValue
 
         switch textSize {
         case .small:

@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import MASShortcut
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -46,6 +47,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSUserDefaults.standardUserDefaults().registerDefaults([
             DefaultsKeys.textSize.rawValue: TextSize.defaultSize.rawValue,
         ])
+
+        MASShortcutBinder.sharedBinder().bindShortcutWithDefaultsKey(
+            DefaultsKeys.shortcut.rawValue,
+            toAction: togglePopover
+        )
     }
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {

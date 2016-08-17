@@ -523,7 +523,7 @@
                 <windowController storyboardIdentifier="preferences" id="zK3-tX-yBd" sceneMemberID="viewController">
                     <window key="window" title="Scratchpad Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="XN4-hk-c2s">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
-                        <rect key="contentRect" x="245" y="301" width="224" height="100"/>
+                        <rect key="contentRect" x="245" y="301" width="250" height="127"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                     </window>
                     <connections>
@@ -532,18 +532,18 @@
                 </windowController>
                 <customObject id="3rZ-fc-g4y" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-37" y="566"/>
+            <point key="canvasLocation" x="-24" y="559.5"/>
         </scene>
         <!--Preferences View Controller-->
         <scene sceneID="Bqh-yF-rem">
             <objects>
                 <viewController id="2np-su-BLG" customClass="PreferencesViewController" customModule="Scratchpad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="i9l-W1-vya">
-                        <rect key="frame" x="0.0" y="0.0" width="224" height="100"/>
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="127"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1u5-2J-u1Y">
-                                <rect key="frame" x="45" y="63" width="61" height="17"/>
+                                <rect key="frame" x="46" y="64" width="61" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Text size:" id="bpQ-sc-9de">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -551,7 +551,7 @@
                                 </textFieldCell>
                             </textField>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MeV-nT-Vpu">
-                                <rect key="frame" x="109" y="63" width="55" height="18"/>
+                                <rect key="frame" x="112" y="63" width="55" height="18"/>
                                 <buttonCell key="cell" type="radio" title="Small" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="UPm-x3-o8S">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -561,7 +561,7 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2fM-b0-wgh">
-                                <rect key="frame" x="109" y="41" width="71" height="18"/>
+                                <rect key="frame" x="112" y="41" width="71" height="18"/>
                                 <buttonCell key="cell" type="radio" title="Medium" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="cdl-ga-5rX">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -570,8 +570,19 @@
                                     <action selector="chooseTextSize:" target="2np-su-BLG" id="U0R-jz-1La"/>
                                 </connections>
                             </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DhY-Ot-E7h">
+                                <rect key="frame" x="18" y="90" width="89" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Bring to front:" id="Gnj-j0-k8n">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h7x-E8-XG7" customClass="MASShortcutView">
+                                <rect key="frame" x="113" y="88" width="117" height="19"/>
+                            </customView>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rRL-QR-Xgz">
-                                <rect key="frame" x="109" y="19" width="57" height="18"/>
+                                <rect key="frame" x="112" y="19" width="57" height="18"/>
                                 <buttonCell key="cell" type="radio" title="Large" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="AeF-6F-ZvA">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -585,12 +596,13 @@
                     <connections>
                         <outlet property="largeTextButton" destination="rRL-QR-Xgz" id="rhY-JF-3f9"/>
                         <outlet property="mediumTextButton" destination="2fM-b0-wgh" id="gbP-4o-LNK"/>
+                        <outlet property="shortcutView" destination="h7x-E8-XG7" id="jqf-0y-Az4"/>
                         <outlet property="smallTextButton" destination="MeV-nT-Vpu" id="LzN-wF-50K"/>
                     </connections>
                 </viewController>
                 <customObject id="dJj-0n-npv" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="279" y="566"/>
+            <point key="canvasLocation" x="310" y="559.5"/>
         </scene>
     </scenes>
 </document>

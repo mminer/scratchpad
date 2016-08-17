@@ -15,7 +15,34 @@
 		49E2E1361D64013800DF6E47 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2E1351D64013800DF6E47 /* PreferencesViewController.swift */; };
 		49E2E1381D6403BD00DF6E47 /* TextSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2E1371D6403BD00DF6E47 /* TextSize.swift */; };
 		49E2E13A1D64048800DF6E47 /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2E1391D64048800DF6E47 /* DefaultsKeys.swift */; };
+		49E2E13C1D6412C100DF6E47 /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49E2E13B1D6412C100DF6E47 /* MASShortcut.framework */; };
+		49E2E13D1D6412C100DF6E47 /* MASShortcut.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 49E2E13B1D6412C100DF6E47 /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		49E2E1421D64132800DF6E47 /* MASShortcut.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 49E2E1411D64132800DF6E47 /* MASShortcut.framework.dSYM */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		49E2E13E1D6412C100DF6E47 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				49E2E13D1D6412C100DF6E47 /* MASShortcut.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49E2E1401D64131600DF6E47 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				49E2E1421D64132800DF6E47 /* MASShortcut.framework.dSYM in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		49E2E1031D62C9E000DF6E47 /* Scratchpad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scratchpad.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,6 +56,8 @@
 		49E2E1351D64013800DF6E47 /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		49E2E1371D6403BD00DF6E47 /* TextSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSize.swift; sourceTree = "<group>"; };
 		49E2E1391D64048800DF6E47 /* DefaultsKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
+		49E2E13B1D6412C100DF6E47 /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = Carthage/Build/Mac/MASShortcut.framework; sourceTree = "<group>"; };
+		49E2E1411D64132800DF6E47 /* MASShortcut.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = MASShortcut.framework.dSYM; path = Carthage/Build/Mac/MASShortcut.framework.dSYM; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49E2E13C1D6412C100DF6E47 /* MASShortcut.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,6 +75,8 @@
 		49E2E0FA1D62C9E000DF6E47 = {
 			isa = PBXGroup;
 			children = (
+				49E2E1431D64132F00DF6E47 /* Debug Symbols */,
+				49E2E13F1D6412C700DF6E47 /* Frameworks */,
 				49E2E1051D62C9E000DF6E47 /* Scratchpad */,
 				49E2E1041D62C9E000DF6E47 /* Products */,
 			);
@@ -75,6 +107,22 @@
 			path = Scratchpad;
 			sourceTree = "<group>";
 		};
+		49E2E13F1D6412C700DF6E47 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				49E2E13B1D6412C100DF6E47 /* MASShortcut.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		49E2E1431D64132F00DF6E47 /* Debug Symbols */ = {
+			isa = PBXGroup;
+			children = (
+				49E2E1411D64132800DF6E47 /* MASShortcut.framework.dSYM */,
+			);
+			name = "Debug Symbols";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -85,6 +133,8 @@
 				49E2E0FF1D62C9E000DF6E47 /* Sources */,
 				49E2E1001D62C9E000DF6E47 /* Frameworks */,
 				49E2E1011D62C9E000DF6E47 /* Resources */,
+				49E2E13E1D6412C100DF6E47 /* Embed Frameworks */,
+				49E2E1401D64131600DF6E47 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -261,6 +311,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Scratchpad/Scratchpad.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = Scratchpad/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matthewminer.Scratchpad;
@@ -274,6 +328,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Scratchpad/Scratchpad.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = Scratchpad/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matthewminer.Scratchpad;

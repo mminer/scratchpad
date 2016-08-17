@@ -8,5 +8,6 @@
 
 enum DefaultsKeys: String {
 
+    case shortcut
     case textSize
 }
