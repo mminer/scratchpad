@@ -98,6 +98,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private func hidePopover() {
         popover.performClose(self)
         eventMonitor.stop()
+        NSApp.hide(self)
     }
 
     private func showPopover() {
@@ -105,6 +106,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return
         }
 
+        NSApp.activateIgnoringOtherApps(true)
         popover.showRelativeToRect(button.bounds, ofView: button, preferredEdge: .MinY)
         eventMonitor.start()
     }
