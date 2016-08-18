@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private lazy var eventMonitor: EventMonitor = EventMonitor(
         mask: [.LeftMouseDownMask, .RightMouseUpMask],
-        handler: { _ in self.hidePopover() }
+        handler: { _ in self.hideScratchpad() }
     )
 
     private lazy var menu: NSMenu = {
@@ -26,22 +26,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return menu
     }()
 
-    private lazy var preferencesWindowController: NSWindowController? = {
-        let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        return storyboard.instantiateControllerWithIdentifier("preferences") as? NSWindowController
-    }()
-
-    private lazy var popover: NSPopover = {
-        let popover = NSPopover()
-        popover.behavior = .Transient
-        popover.contentViewController = self.popoverViewController
-        return popover
-    }()
-
-    private lazy var popoverViewController: NSViewController? = {
-        let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        return storyboard.instantiateControllerWithIdentifier("scratchpad") as? NSViewController
-    }()
+    private lazy var preferencesWindowController: NSWindowController? = self.storyboard.instantiateControllerWithIdentifier("preferences") as? NSWindowController
+    private lazy var scratchpadWindowController: NSWindowController? = self.storyboard.instantiateControllerWithIdentifier("scratchpad") as? NSWindowController
+    private lazy var storyboard = NSStoryboard(name: "Main", bundle: nil)
 
     func applicationWillFinishLaunching(notification: NSNotification) {
         NSUserDefaults.standardUserDefaults().registerDefaults([
@@ -50,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         MASShortcutBinder.sharedBinder().bindShortcutWithDefaultsKey(
             DefaultsKeys.shortcut.rawValue,
-            toAction: togglePopover
+            toAction: toggleScratchpad
         )
     }
 
@@ -79,7 +66,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             statusItem.popUpStatusItemMenu(menu)
 
         case .LeftMouseUp:
-            togglePopover()
+            toggleScratchpad()
 
         default:
             break
@@ -95,27 +82,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         preferencesWindowController.window?.makeKeyAndOrderFront(self)
     }
 
-    private func hidePopover() {
-        popover.performClose(self)
+    private func hideScratchpad() {
         eventMonitor.stop()
+        scratchpadWindowController?.close()
         NSApp.hide(self)
     }
 
-    private func showPopover() {
-        guard let button = statusItem.button else {
-            return
-        }
-
-        NSApp.activateIgnoringOtherApps(true)
-        popover.showRelativeToRect(button.bounds, ofView: button, preferredEdge: .MinY)
+    private func showScratchpad() {
         eventMonitor.start()
+        scratchpadWindowController?.showWindow(self)
+        NSApp.activateIgnoringOtherApps(true)
     }
 
-    private func togglePopover() {
-        if popover.shown {
-            hidePopover()
+    private func toggleScratchpad() {
+        if scratchpadWindowController?.window?.visible == true {
+            hideScratchpad()
         } else {
-            showPopover()
+            showScratchpad()
         }
     }
 }
