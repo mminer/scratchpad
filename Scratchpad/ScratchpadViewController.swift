@@ -14,6 +14,11 @@ class ScratchpadViewController: NSViewController {
 
     private var textSizeContext = 0
 
+    private lazy var eventMonitor: EventMonitor = EventMonitor(
+        mask: [.LeftMouseDownMask, .RightMouseUpMask],
+        handler: { _ in self.view.window?.close() }
+    )
+
     override func viewDidLoad() {
         super.viewDidLoad()
         textView.textColor = NSColor.textColor()
@@ -26,12 +31,14 @@ class ScratchpadViewController: NSViewController {
         )
     }
 
-    deinit {
-        NSUserDefaults.standardUserDefaults().removeObserver(
-            self,
-            forKeyPath: DefaultsKeys.textSize.rawValue,
-            context: &textSizeContext
-        )
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        eventMonitor.start()
+    }
+
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        eventMonitor.stop()
     }
 
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -42,6 +49,22 @@ class ScratchpadViewController: NSViewController {
         } else {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
         }
+    }
+
+    deinit {
+        NSUserDefaults.standardUserDefaults().removeObserver(
+            self,
+            forKeyPath: DefaultsKeys.textSize.rawValue,
+            context: &textSizeContext
+        )
+    }
+
+    func hide(sender: AnyObject?) {
+        view.window?.close()
+    }
+
+    func performClose(sender: AnyObject?) {
+        view.window?.close()
     }
 
     private func setTextSize(textSize: TextSize) {

@@ -14,11 +14,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
 
-    private lazy var eventMonitor: EventMonitor = EventMonitor(
-        mask: [.LeftMouseDownMask, .RightMouseUpMask],
-        handler: { _ in self.hideScratchpad() }
-    )
-
     private lazy var menu: NSMenu = {
         let menu = NSMenu()
         menu.addItemWithTitle("Preferences…", action: #selector(openPreferences), keyEquivalent: "")
@@ -29,6 +24,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private lazy var preferencesWindowController: NSWindowController? = self.storyboard.instantiateControllerWithIdentifier("preferences") as? NSWindowController
     private lazy var scratchpadWindowController: NSWindowController? = self.storyboard.instantiateControllerWithIdentifier("scratchpad") as? NSWindowController
     private lazy var storyboard = NSStoryboard(name: "Main", bundle: nil)
+
+    private var scratchpadVisible: Bool {
+        return scratchpadWindowController?.window?.visible == true
+    }
 
     func applicationWillFinishLaunching(notification: NSNotification) {
         NSUserDefaults.standardUserDefaults().registerDefaults([
@@ -73,32 +72,35 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    func openPreferences() {
-        guard let preferencesWindowController = preferencesWindowController else {
-            return
-        }
-
-        preferencesWindowController.showWindow(self)
-        preferencesWindowController.window?.makeKeyAndOrderFront(self)
-    }
-
     private func hideScratchpad() {
-        eventMonitor.stop()
         scratchpadWindowController?.close()
         NSApp.hide(self)
     }
 
     private func showScratchpad() {
-        eventMonitor.start()
         scratchpadWindowController?.showWindow(self)
         NSApp.activateIgnoringOtherApps(true)
     }
 
     private func toggleScratchpad() {
-        if scratchpadWindowController?.window?.visible == true {
+        if scratchpadVisible {
             hideScratchpad()
         } else {
             showScratchpad()
         }
+    }
+
+    @IBAction func openPreferences(sender: AnyObject?) {
+        guard let preferencesWindowController = preferencesWindowController else {
+            return
+        }
+
+        if scratchpadVisible {
+            scratchpadWindowController?.close()
+        }
+
+        NSApp.activateIgnoringOtherApps(true)
+        preferencesWindowController.showWindow(self)
+        preferencesWindowController.window?.makeKeyAndOrderFront(self)
     }
 }
