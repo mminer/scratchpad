@@ -12,6 +12,7 @@ class ScratchpadViewController: NSViewController {
 
     @IBOutlet var textView: NSTextView!
 
+    private let defaults = NSUserDefaults.standardUserDefaults()
     private var textSizeContext = 0
 
     private lazy var eventMonitor: EventMonitor = EventMonitor(
@@ -21,6 +22,9 @@ class ScratchpadViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        textView.delegate = self
+        textView.string = defaults.stringForKey(DefaultsKeys.content.rawValue) ?? ""
         textView.textColor = NSColor.textColor()
 
         NSUserDefaults.standardUserDefaults().addObserver(
@@ -80,5 +84,12 @@ class ScratchpadViewController: NSViewController {
         }
 
         textView.font = NSFont.systemFontOfSize(fontSize)
+    }
+}
+
+extension ScratchpadViewController: NSTextViewDelegate {
+
+    func textDidChange(notification: NSNotification) {
+        defaults.setObject(textView.string ?? "", forKey: DefaultsKeys.content.rawValue)
     }
 }
