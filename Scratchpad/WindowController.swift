@@ -17,7 +17,7 @@ class WindowController: NSWindowController {
             fatalError("Window expected to be non-nil by this time.")
         }
 
-        window.titleVisibility = .Hidden
+        window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
     }
 }

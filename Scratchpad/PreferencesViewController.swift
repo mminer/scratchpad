@@ -18,13 +18,13 @@ class PreferencesViewController: NSViewController {
     @IBOutlet weak var smallTextButton: NSButton!
 
     private var textSize: TextSize {
-        let rawValue = NSUserDefaults.standardUserDefaults().stringForKey(DefaultsKeys.textSize.rawValue) ?? ""
-        return TextSize(rawValue: rawValue) ?? TextSize.defaultSize
+        let rawValue = UserDefaults.standard.string(forKey: DefaultsKey.textSize.rawValue) ?? ""
+        return TextSize(rawValue: rawValue) ?? .defaultSize
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        shortcutView.associatedUserDefaultsKey = DefaultsKeys.shortcut.rawValue
+        shortcutView.associatedUserDefaultsKey = DefaultsKey.shortcut.rawValue
 
         switch textSize {
         case .small:
@@ -38,7 +38,7 @@ class PreferencesViewController: NSViewController {
         }
     }
     
-    @IBAction func chooseTextSize(sender: NSButton) {
+    @IBAction func chooseTextSize(_ sender: NSButton) {
         let textSize: TextSize
 
         switch sender {
@@ -55,9 +55,6 @@ class PreferencesViewController: NSViewController {
             fatalError("Unrecognized button choosing text size.")
         }
 
-        NSUserDefaults.standardUserDefaults().setValue(
-            textSize.rawValue,
-            forKey: DefaultsKeys.textSize.rawValue
-        )
+        UserDefaults.standard.set(textSize.rawValue, forKey: DefaultsKey.textSize.rawValue)
     }
 }

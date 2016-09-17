@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,7 +15,7 @@
 		49E2E1311D638B9600DF6E47 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2E1301D638B9600DF6E47 /* EventMonitor.swift */; };
 		49E2E1361D64013800DF6E47 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2E1351D64013800DF6E47 /* PreferencesViewController.swift */; };
 		49E2E1381D6403BD00DF6E47 /* TextSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2E1371D6403BD00DF6E47 /* TextSize.swift */; };
-		49E2E13A1D64048800DF6E47 /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2E1391D64048800DF6E47 /* DefaultsKeys.swift */; };
+		49E2E13A1D64048800DF6E47 /* DefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2E1391D64048800DF6E47 /* DefaultsKey.swift */; };
 		49E2E13C1D6412C100DF6E47 /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49E2E13B1D6412C100DF6E47 /* MASShortcut.framework */; };
 		49E2E13D1D6412C100DF6E47 /* MASShortcut.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 49E2E13B1D6412C100DF6E47 /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		49E2E1421D64132800DF6E47 /* MASShortcut.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 49E2E1411D64132800DF6E47 /* MASShortcut.framework.dSYM */; };
@@ -57,7 +57,7 @@
 		49E2E1341D63F34400DF6E47 /* Scratchpad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Scratchpad.entitlements; sourceTree = "<group>"; };
 		49E2E1351D64013800DF6E47 /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		49E2E1371D6403BD00DF6E47 /* TextSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSize.swift; sourceTree = "<group>"; };
-		49E2E1391D64048800DF6E47 /* DefaultsKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
+		49E2E1391D64048800DF6E47 /* DefaultsKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultsKey.swift; sourceTree = "<group>"; };
 		49E2E13B1D6412C100DF6E47 /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = Carthage/Build/Mac/MASShortcut.framework; sourceTree = "<group>"; };
 		49E2E1411D64132800DF6E47 /* MASShortcut.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = MASShortcut.framework.dSYM; path = Carthage/Build/Mac/MASShortcut.framework.dSYM; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,7 +97,7 @@
 			children = (
 				49E2E1341D63F34400DF6E47 /* Scratchpad.entitlements */,
 				49E2E1061D62C9E000DF6E47 /* AppDelegate.swift */,
-				49E2E1391D64048800DF6E47 /* DefaultsKeys.swift */,
+				49E2E1391D64048800DF6E47 /* DefaultsKey.swift */,
 				49E2E1301D638B9600DF6E47 /* EventMonitor.swift */,
 				49E2E1351D64013800DF6E47 /* PreferencesViewController.swift */,
 				49E2E1081D62C9E000DF6E47 /* ScratchpadViewController.swift */,
@@ -155,11 +155,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Matthew Miner";
 				TargetAttributes = {
 					49E2E1021D62C9E000DF6E47 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -169,7 +170,7 @@
 				};
 			};
 			buildConfigurationList = 49E2E0FE1D62C9E000DF6E47 /* Build configuration list for PBXProject "Scratchpad" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -204,7 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49E2E1311D638B9600DF6E47 /* EventMonitor.swift in Sources */,
-				49E2E13A1D64048800DF6E47 /* DefaultsKeys.swift in Sources */,
+				49E2E13A1D64048800DF6E47 /* DefaultsKey.swift in Sources */,
 				49E2E1381D6403BD00DF6E47 /* TextSize.swift in Sources */,
 				4952E9F91D656FAD00255346 /* WindowController.swift in Sources */,
 				49E2E1091D62C9E000DF6E47 /* ScratchpadViewController.swift in Sources */,
@@ -241,8 +242,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -286,8 +289,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -306,6 +311,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
@@ -323,6 +329,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matthewminer.Scratchpad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -340,6 +347,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matthewminer.Scratchpad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

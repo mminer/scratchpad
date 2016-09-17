@@ -12,59 +12,68 @@ import MASShortcut
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    private let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
+    private let statusItem = NSStatusBar.system().statusItem(withLength: -1)
 
-    private lazy var menu: NSMenu = {
+    private lazy var statusMenu: NSMenu = {
         let menu = NSMenu()
-        menu.addItemWithTitle("Preferences…", action: #selector(openPreferences), keyEquivalent: "")
-        menu.addItemWithTitle("Quit Scratchpad", action: #selector(NSApp.terminate(_:)), keyEquivalent: "")
+
+        menu.addItem(
+            withTitle: "Preferences…",
+            action: #selector(openPreferences),
+            keyEquivalent: ""
+        )
+
+        menu.addItem(
+            withTitle: "Quit Scratchpad",
+            action: #selector(NSApp.terminate(_:)),
+            keyEquivalent: ""
+        )
+
         return menu
     }()
 
-    private lazy var preferencesWindowController: NSWindowController? = self.storyboard.instantiateControllerWithIdentifier("preferences") as? NSWindowController
-    private lazy var scratchpadWindowController: NSWindowController? = self.storyboard.instantiateControllerWithIdentifier("scratchpad") as? NSWindowController
+    private lazy var preferencesWindowController: NSWindowController? = self.storyboard.instantiateController(withIdentifier: "preferences") as? NSWindowController
+    private lazy var scratchpadWindowController: NSWindowController? = self.storyboard.instantiateController(withIdentifier: "scratchpad") as? NSWindowController
     private lazy var storyboard = NSStoryboard(name: "Main", bundle: nil)
 
     private var scratchpadVisible: Bool {
-        return scratchpadWindowController?.window?.visible == true
+        return scratchpadWindowController?.window?.isVisible == true
     }
 
-    func applicationWillFinishLaunching(notification: NSNotification) {
-        NSUserDefaults.standardUserDefaults().registerDefaults([
-            DefaultsKeys.textSize.rawValue: TextSize.defaultSize.rawValue,
+    func applicationWillFinishLaunching(_ aNotification: Notification) {
+        UserDefaults.standard.register(defaults: [
+            DefaultsKey.textSize.rawValue: TextSize.defaultSize.rawValue,
         ])
 
-        MASShortcutBinder.sharedBinder().bindShortcutWithDefaultsKey(
-            DefaultsKeys.shortcut.rawValue,
+        MASShortcutBinder.shared().bindShortcut(
+            withDefaultsKey: DefaultsKey.shortcut.rawValue,
             toAction: toggleScratchpad
         )
     }
 
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         if let button = statusItem.button {
             button.action = #selector(handleStatusItemClick(_:))
             button.image = NSImage(named: "StatusItemIcon")
-            button.image?.template = true
+            button.image?.isTemplate = true
             button.target = self
 
             // Support right clicking.
-            let mask: NSEventMask = [.LeftMouseUpMask, .RightMouseUpMask]
-            button.sendActionOn(Int(mask.rawValue))
+            button.sendAction(on: [.leftMouseUp, .rightMouseUp])
         }
     }
 
-    func handleStatusItemClick(sender: NSStatusBarButton) {
+    func handleStatusItemClick(_ sender: NSStatusBarButton) {
         guard let currentEvent = NSApp.currentEvent else {
             return
         }
 
         switch currentEvent.type {
-        case .LeftMouseUp where currentEvent.modifierFlags.contains(.ControlKeyMask),
-             .RightMouseUp:
+        case .leftMouseUp where currentEvent.modifierFlags.contains(.control), .rightMouseUp:
             // TODO: replace this deprecated method with alternative
-            statusItem.popUpStatusItemMenu(menu)
+            statusItem.popUpMenu(statusMenu)
 
-        case .LeftMouseUp:
+        case .leftMouseUp:
             toggleScratchpad()
 
         default:
@@ -79,7 +88,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func showScratchpad() {
         scratchpadWindowController?.showWindow(self)
-        NSApp.activateIgnoringOtherApps(true)
+        NSApp.activate(ignoringOtherApps: true)
     }
 
     private func toggleScratchpad() {
@@ -90,7 +99,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    @IBAction func openPreferences(sender: AnyObject?) {
+    @IBAction func openPreferences(_ sender: AnyObject?) {
         guard let preferencesWindowController = preferencesWindowController else {
             return
         }
@@ -99,7 +108,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             scratchpadWindowController?.close()
         }
 
-        NSApp.activateIgnoringOtherApps(true)
+        NSApp.activate(ignoringOtherApps: true)
         preferencesWindowController.showWindow(self)
         preferencesWindowController.window?.makeKeyAndOrderFront(self)
     }
