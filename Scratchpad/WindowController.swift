@@ -6,9 +6,9 @@
 //  Copyright © 2016 Matthew Miner. All rights reserved.
 //
 
-import Cocoa
+import AppKit
 
-class WindowController: NSWindowController {
+final class WindowController: NSWindowController {
 
     override func windowDidLoad() {
         super.windowDidLoad()

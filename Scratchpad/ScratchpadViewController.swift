@@ -6,11 +6,17 @@
 //  Copyright © 2016 Matthew Miner. All rights reserved.
 //
 
-import Cocoa
+import AppKit
 
-class ScratchpadViewController: NSViewController {
+final class ScratchpadViewController: NSViewController {
 
     @IBOutlet var textView: NSTextView!
+
+    private let fontSizes: [TextSize: CGFloat] = [
+        .small: 13,
+        .medium: 16,
+        .large: 19,
+    ]
 
     private var textSizeContext = 0
 
@@ -44,11 +50,11 @@ class ScratchpadViewController: NSViewController {
         eventMonitor.stop()
     }
 
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if context == &textSizeContext {
             let rawValue = (change?[.newKey] as? String) ?? ""
             let textSize = TextSize(rawValue: rawValue) ?? .defaultSize
-            setFont(forTextSize: textSize)
+            setFont(for: textSize)
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
@@ -70,16 +76,9 @@ class ScratchpadViewController: NSViewController {
         view.window?.close()
     }
 
-    private func setFont(forTextSize textSize: TextSize) {
-        let fontSize: CGFloat
-
-        switch textSize {
-        case .small:
-            fontSize = 13
-        case .medium:
-            fontSize = 16
-        case .large:
-            fontSize = 19
+    private func setFont(for textSize: TextSize) {
+        guard let fontSize = fontSizes[textSize] else {
+            return
         }
 
         textView.font = NSFont.systemFont(ofSize: fontSize)

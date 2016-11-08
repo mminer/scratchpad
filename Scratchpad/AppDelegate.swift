@@ -12,26 +12,6 @@ import MASShortcut
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    private let statusItem = NSStatusBar.system().statusItem(withLength: -1)
-
-    private lazy var statusMenu: NSMenu = {
-        let menu = NSMenu()
-
-        menu.addItem(
-            withTitle: "Preferences…",
-            action: #selector(openPreferences),
-            keyEquivalent: ""
-        )
-
-        menu.addItem(
-            withTitle: "Quit Scratchpad",
-            action: #selector(NSApp.terminate(_:)),
-            keyEquivalent: ""
-        )
-
-        return menu
-    }()
-
     private lazy var preferencesWindowController: NSWindowController? = self.storyboard.instantiateController(withIdentifier: "preferences") as? NSWindowController
     private lazy var scratchpadWindowController: NSWindowController? = self.storyboard.instantiateController(withIdentifier: "scratchpad") as? NSWindowController
     private lazy var storyboard = NSStoryboard(name: "Main", bundle: nil)
@@ -40,10 +20,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return scratchpadWindowController?.window?.isVisible == true
     }
 
-    func applicationWillFinishLaunching(_ aNotification: Notification) {
+    private var showDockIconContext = 0
+
+    func applicationWillFinishLaunching(_ notification: Notification) {
         UserDefaults.standard.register(defaults: [
+            DefaultsKey.showDockIcon.rawValue: NSOnState,
             DefaultsKey.textSize.rawValue: TextSize.defaultSize.rawValue,
         ])
+
+        UserDefaults.standard.addObserver(
+            self,
+            forKeyPath: DefaultsKey.showDockIcon.rawValue,
+            options: [.initial, .new],
+            context: &showDockIconContext
+        )
 
         MASShortcutBinder.shared().bindShortcut(
             withDefaultsKey: DefaultsKey.shortcut.rawValue,
@@ -51,33 +41,43 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
     }
 
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        if let button = statusItem.button {
-            button.action = #selector(handleStatusItemClick(_:))
-            button.image = NSImage(named: "StatusItemIcon")
-            button.image?.isTemplate = true
-            button.target = self
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        let showDockIcon = UserDefaults.standard.integer(forKey: DefaultsKey.showDockIcon.rawValue)
 
-            // Support right clicking.
-            button.sendAction(on: [.leftMouseUp, .rightMouseUp])
-        }
-    }
-
-    func handleStatusItemClick(_ sender: NSStatusBarButton) {
-        guard let currentEvent = NSApp.currentEvent else {
-            return
-        }
-
-        switch currentEvent.type {
-        case .leftMouseUp where currentEvent.modifierFlags.contains(.control), .rightMouseUp:
-            // TODO: replace this deprecated method with alternative
-            statusItem.popUpMenu(statusMenu)
-
-        case .leftMouseUp:
-            toggleScratchpad()
-
+        switch showDockIcon {
+        case NSOffState:
+            openPreferences(self)
+        case NSOnState:
+            showScratchpad()
         default:
             break
+        }
+
+        return true
+    }
+
+    func applicationWillTerminate(_ notification: Notification) {
+        UserDefaults.standard.removeObserver(
+            self,
+            forKeyPath: DefaultsKey.showDockIcon.rawValue,
+            context: &showDockIconContext
+        )
+    }
+
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        if context == &showDockIconContext {
+            let showDockIcon = (change?[.newKey] as? Int) ?? NSOnState
+
+            switch showDockIcon {
+            case NSOffState:
+                DockIcon.hide()
+            case NSOnState:
+                DockIcon.show()
+            default:
+                break
+            }
+        } else {
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
 

@@ -10,5 +10,6 @@ enum DefaultsKey: String {
 
     case content
     case shortcut
+    case showDockIcon
     case textSize
 }

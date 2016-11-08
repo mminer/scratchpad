@@ -6,9 +6,9 @@
 //  Copyright © 2016 Matthew Miner. All rights reserved.
 //
 
-import Cocoa
+import AppKit
 
-class EventMonitor {
+final class EventMonitor {
 
     private let handler: (NSEvent) -> Void
     private let mask: NSEventMask

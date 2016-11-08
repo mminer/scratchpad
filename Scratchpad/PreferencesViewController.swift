@@ -6,12 +6,24 @@
 //  Copyright © 2016 Matthew Miner. All rights reserved.
 //
 
-import Cocoa
+import AppKit
 import MASShortcut
 
-class PreferencesViewController: NSViewController {
+final class PreferencesViewController: NSViewController {
 
-    @IBOutlet weak var shortcutView: MASShortcutView!
+    @IBOutlet weak var showDockIconCheckbox: NSButton! {
+        didSet {
+            showDockIconCheckbox.state = UserDefaults.standard.integer(
+                forKey: DefaultsKey.showDockIcon.rawValue
+            )
+        }
+    }
+
+    @IBOutlet weak var shortcutView: MASShortcutView! {
+        didSet {
+            shortcutView.associatedUserDefaultsKey = DefaultsKey.shortcut.rawValue
+        }
+    }
 
     @IBOutlet weak var largeTextButton: NSButton!
     @IBOutlet weak var mediumTextButton: NSButton!
@@ -24,7 +36,6 @@ class PreferencesViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        shortcutView.associatedUserDefaultsKey = DefaultsKey.shortcut.rawValue
 
         switch textSize {
         case .small:
@@ -37,24 +48,28 @@ class PreferencesViewController: NSViewController {
             largeTextButton.state = NSOnState
         }
     }
-    
+
     @IBAction func chooseTextSize(_ sender: NSButton) {
-        let textSize: TextSize
+        let newTextSize: TextSize
 
         switch sender {
         case smallTextButton:
-            textSize = .small
+            newTextSize = .small
 
         case mediumTextButton:
-            textSize = .medium
+            newTextSize = .medium
 
         case largeTextButton:
-            textSize = .large
+            newTextSize = .large
 
         default:
             fatalError("Unrecognized button choosing text size.")
         }
 
-        UserDefaults.standard.set(textSize.rawValue, forKey: DefaultsKey.textSize.rawValue)
+        UserDefaults.standard.set(newTextSize.rawValue, forKey: DefaultsKey.textSize.rawValue)
+    }
+
+    @IBAction func toggleShowDockIcon(_ sender: NSButton) {
+        UserDefaults.standard.set(sender.state, forKey: DefaultsKey.showDockIcon.rawValue)
     }
 }
