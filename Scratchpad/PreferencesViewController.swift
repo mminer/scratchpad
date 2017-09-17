@@ -13,9 +13,8 @@ final class PreferencesViewController: NSViewController {
 
     @IBOutlet weak var showDockIconCheckbox: NSButton! {
         didSet {
-            showDockIconCheckbox.state = UserDefaults.standard.integer(
-                forKey: DefaultsKey.showDockIcon.rawValue
-            )
+            let showDockIconValue = UserDefaults.standard.integer(forKey: DefaultsKey.showDockIcon.rawValue)
+            showDockIconCheckbox.state = NSControl.StateValue(rawValue: showDockIconValue)
         }
     }
 
@@ -31,7 +30,7 @@ final class PreferencesViewController: NSViewController {
 
     private var textSize: TextSize {
         let rawValue = UserDefaults.standard.string(forKey: DefaultsKey.textSize.rawValue) ?? ""
-        return TextSize(rawValue: rawValue) ?? .defaultSize
+        return TextSize(rawValue: rawValue) ?? .default
     }
 
     override func viewDidLoad() {
@@ -39,13 +38,13 @@ final class PreferencesViewController: NSViewController {
 
         switch textSize {
         case .small:
-            smallTextButton.state = NSOnState
+            smallTextButton.state = .on
 
         case .medium:
-            mediumTextButton.state = NSOnState
+            mediumTextButton.state = .on
 
         case .large:
-            largeTextButton.state = NSOnState
+            largeTextButton.state = .on
         }
     }
 
@@ -70,6 +69,6 @@ final class PreferencesViewController: NSViewController {
     }
 
     @IBAction func toggleShowDockIcon(_ sender: NSButton) {
-        UserDefaults.standard.set(sender.state, forKey: DefaultsKey.showDockIcon.rawValue)
+        UserDefaults.standard.set(sender.state.rawValue, forKey: DefaultsKey.showDockIcon.rawValue)
     }
 }

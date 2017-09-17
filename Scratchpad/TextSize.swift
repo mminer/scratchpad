@@ -12,5 +12,5 @@ enum TextSize: String {
     case medium
     case large
 
-    static let defaultSize = TextSize.medium
+    static let `default` = TextSize.medium
 }

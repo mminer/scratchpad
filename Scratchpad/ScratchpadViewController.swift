@@ -10,7 +10,13 @@ import AppKit
 
 final class ScratchpadViewController: NSViewController {
 
-    @IBOutlet var textView: NSTextView!
+    @IBOutlet var textView: NSTextView! {
+        didSet {
+            textView.delegate = self
+            textView.string = UserDefaults.standard.string(forKey: DefaultsKey.content.rawValue) ?? ""
+            textView.textColor = .textColor
+        }
+    }
 
     private let fontSizes: [TextSize: CGFloat] = [
         .small: 13,
@@ -18,25 +24,19 @@ final class ScratchpadViewController: NSViewController {
         .large: 19,
     ]
 
-    private var textSizeContext = 0
-
     private lazy var eventMonitor: EventMonitor = EventMonitor(
         mask: [.leftMouseDown, .rightMouseUp],
-        handler: { _ in self.view.window?.close() }
+        handler: { [weak self] _ in self?.view.window?.close() }
     )
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        textView.delegate = self
-        textView.string = UserDefaults.standard.string(forKey: DefaultsKey.content.rawValue) ?? ""
-        textView.textColor = NSColor.textColor
-
         UserDefaults.standard.addObserver(
             self,
             forKeyPath: DefaultsKey.textSize.rawValue,
             options: [.initial, .new],
-            context: &textSizeContext
+            context: nil
         )
     }
 
@@ -51,21 +51,19 @@ final class ScratchpadViewController: NSViewController {
     }
 
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        if context == &textSizeContext {
+        switch keyPath {
+        case DefaultsKey.textSize.rawValue?:
             let rawValue = (change?[.newKey] as? String) ?? ""
-            let textSize = TextSize(rawValue: rawValue) ?? .defaultSize
+            let textSize = TextSize(rawValue: rawValue) ?? .default
             setFont(for: textSize)
-        } else {
+
+        default:
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
 
     deinit {
-        UserDefaults.standard.removeObserver(
-            self,
-            forKeyPath: DefaultsKey.textSize.rawValue,
-            context: &textSizeContext
-        )
+        UserDefaults.standard.removeObserver(self, forKeyPath: DefaultsKey.textSize.rawValue, context: nil)
     }
 
     func hide(_ sender: AnyObject?) {
@@ -88,6 +86,6 @@ final class ScratchpadViewController: NSViewController {
 extension ScratchpadViewController: NSTextViewDelegate {
 
     func textDidChange(_ notification: Notification) {
-        UserDefaults.standard.set(textView.string ?? "", forKey: DefaultsKey.content.rawValue)
+        UserDefaults.standard.set(textView.string, forKey: DefaultsKey.content.rawValue)
     }
 }

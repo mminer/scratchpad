@@ -12,27 +12,25 @@ import MASShortcut
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    private lazy var preferencesWindowController: NSWindowController? = self.storyboard.instantiateController(withIdentifier: "preferences") as? NSWindowController
-    private lazy var scratchpadWindowController: NSWindowController? = self.storyboard.instantiateController(withIdentifier: "scratchpad") as? NSWindowController
-    private lazy var storyboard = NSStoryboard(name: "Main", bundle: nil)
+    private lazy var preferencesWindowController: NSWindowController? = self.storyboard.instantiateController(withIdentifier: .preferences) as? NSWindowController
+    private lazy var scratchpadWindowController: NSWindowController? = self.storyboard.instantiateController(withIdentifier: .scratchpad) as? NSWindowController
+    private lazy var storyboard = NSStoryboard(name: .main, bundle: nil)
 
-    private var scratchpadVisible: Bool {
-        return scratchpadWindowController?.window?.isVisible == true
+    private var isScratchpadVisible: Bool {
+        return scratchpadWindowController?.window?.isVisible ?? false
     }
-
-    private var showDockIconContext = 0
 
     func applicationWillFinishLaunching(_ notification: Notification) {
         UserDefaults.standard.register(defaults: [
-            DefaultsKey.showDockIcon.rawValue: NSOnState,
-            DefaultsKey.textSize.rawValue: TextSize.defaultSize.rawValue,
+            DefaultsKey.showDockIcon.rawValue: NSControl.StateValue.on.rawValue,
+            DefaultsKey.textSize.rawValue: TextSize.default.rawValue,
         ])
 
         UserDefaults.standard.addObserver(
             self,
             forKeyPath: DefaultsKey.showDockIcon.rawValue,
             options: [.initial, .new],
-            context: &showDockIconContext
+            context: nil
         )
 
         MASShortcutBinder.shared().bindShortcut(
@@ -42,12 +40,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        let showDockIcon = UserDefaults.standard.integer(forKey: DefaultsKey.showDockIcon.rawValue)
+        let showDockIconValue = UserDefaults.standard.integer(forKey: DefaultsKey.showDockIcon.rawValue)
+        let showDockIcon = NSControl.StateValue(rawValue: showDockIconValue)
 
         switch showDockIcon {
-        case NSOffState:
+        case .off:
             openPreferences(self)
-        case NSOnState:
+        case .on:
             showScratchpad()
         default:
             break
@@ -57,26 +56,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationWillTerminate(_ notification: Notification) {
-        UserDefaults.standard.removeObserver(
-            self,
-            forKeyPath: DefaultsKey.showDockIcon.rawValue,
-            context: &showDockIconContext
-        )
+        UserDefaults.standard.removeObserver(self, forKeyPath: DefaultsKey.showDockIcon.rawValue, context: nil)
     }
 
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        if context == &showDockIconContext {
-            let showDockIcon = (change?[.newKey] as? Int) ?? NSOnState
+        switch keyPath {
+        case DefaultsKey.showDockIcon.rawValue?:
+            let showDockIcon: NSControl.StateValue = {
+                guard let showDockIconValue = change?[.newKey] as? Int else {
+                    return .on
+                }
+
+                return NSControl.StateValue(rawValue: showDockIconValue)
+            }()
 
             switch showDockIcon {
-            case NSOffState:
+            case .off:
                 DockIcon.hide()
-            case NSOnState:
+            case .on:
                 DockIcon.show()
             default:
                 break
             }
-        } else {
+
+        default:
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
@@ -92,7 +95,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func toggleScratchpad() {
-        if scratchpadVisible {
+        if isScratchpadVisible {
             hideScratchpad()
         } else {
             showScratchpad()
@@ -104,7 +107,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return
         }
 
-        if scratchpadVisible {
+        if isScratchpadVisible {
             scratchpadWindowController?.close()
         }
 

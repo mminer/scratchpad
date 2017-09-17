@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4952E9F91D656FAD00255346 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4952E9F81D656FAD00255346 /* WindowController.swift */; };
+		495617451F6EF78800BC42F3 /* NSStoryboard.SceneIdentifier+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495617441F6EF78800BC42F3 /* NSStoryboard.SceneIdentifier+App.swift */; };
+		495617491F6EFD3F00BC42F3 /* NSStoryboard.Name+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495617481F6EFD3F00BC42F3 /* NSStoryboard.Name+App.swift */; };
 		49575B631DD1819C00F3B674 /* DockIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49575B621DD1819C00F3B674 /* DockIcon.swift */; };
 		49575B651DD18C8F00F3B674 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49575B641DD18C8F00F3B674 /* Assets.xcassets */; };
 		49E2E1071D62C9E000DF6E47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2E1061D62C9E000DF6E47 /* AppDelegate.swift */; };
@@ -48,6 +50,8 @@
 
 /* Begin PBXFileReference section */
 		4952E9F81D656FAD00255346 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		495617441F6EF78800BC42F3 /* NSStoryboard.SceneIdentifier+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSStoryboard.SceneIdentifier+App.swift"; sourceTree = "<group>"; };
+		495617481F6EFD3F00BC42F3 /* NSStoryboard.Name+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSStoryboard.Name+App.swift"; sourceTree = "<group>"; };
 		49575B621DD1819C00F3B674 /* DockIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DockIcon.swift; sourceTree = "<group>"; };
 		49575B641DD18C8F00F3B674 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49E2E1031D62C9E000DF6E47 /* Scratchpad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scratchpad.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +106,8 @@
 				49E2E1391D64048800DF6E47 /* DefaultsKey.swift */,
 				49575B621DD1819C00F3B674 /* DockIcon.swift */,
 				49E2E1301D638B9600DF6E47 /* EventMonitor.swift */,
+				495617441F6EF78800BC42F3 /* NSStoryboard.SceneIdentifier+App.swift */,
+				495617481F6EFD3F00BC42F3 /* NSStoryboard.Name+App.swift */,
 				49E2E1351D64013800DF6E47 /* PreferencesViewController.swift */,
 				49E2E1081D62C9E000DF6E47 /* ScratchpadViewController.swift */,
 				49E2E1371D6403BD00DF6E47 /* TextSize.swift */,
@@ -158,12 +164,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Matthew Miner";
 				TargetAttributes = {
 					49E2E1021D62C9E000DF6E47 = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -212,9 +218,11 @@
 				49E2E1381D6403BD00DF6E47 /* TextSize.swift in Sources */,
 				49575B631DD1819C00F3B674 /* DockIcon.swift in Sources */,
 				4952E9F91D656FAD00255346 /* WindowController.swift in Sources */,
+				495617451F6EF78800BC42F3 /* NSStoryboard.SceneIdentifier+App.swift in Sources */,
 				49E2E1091D62C9E000DF6E47 /* ScratchpadViewController.swift in Sources */,
 				49E2E1071D62C9E000DF6E47 /* AppDelegate.swift in Sources */,
 				49E2E1361D64013800DF6E47 /* PreferencesViewController.swift in Sources */,
+				495617491F6EFD3F00BC42F3 /* NSStoryboard.Name+App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,14 +249,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -288,14 +302,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -333,7 +353,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matthewminer.Scratchpad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -351,7 +372,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matthewminer.Scratchpad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
